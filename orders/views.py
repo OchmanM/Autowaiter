@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Order, Product, Table
 from .forms import OrderForm, ProductForm, TableForm
+from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+import json
 from django.contrib.auth.models import User
 
 
@@ -13,8 +16,9 @@ def index(request):
 
 @login_required
 def show(request, order_id):
-    order = Order.objects.filter(id=order_id)
-    return render(request, 'show.html', {'order': order})
+    with transaction.atomic():
+        order = Order.objects.filter(id=order_id)
+        return render(request, 'show.html', {'order': order})
 
 @login_required
 def new(request):
@@ -65,9 +69,11 @@ def index_product(request):
 
 @login_required
 def new_product(request):
+    transaction.set_autocommit(False)
     if request.POST:
         form = ProductForm(request.POST)
         if form.is_valid():
+            transaction.set_autocommit(True)
             if form.save():
                 return redirect('/products', messages.success(request, 'Product was successfully created.', 'alert-success'))
             else:
@@ -113,4 +119,19 @@ def destroy_table(request, table_id):
                         messages.success(request, 'Product was successfully deleted.', 'alert-success'))
     else:
         return redirect('/tables',
-                        messages.danger(request, 'Cannot delete product while its order exists.', 'alert-danger'))
+                        messages.error(request, 'Cannot delete product while its order exists.', 'alert-danger'))
+
+@login_required
+def status_change(request, order_id):
+    ORDER_STATUS = {'ORDERED':'PREPARING',
+                    'PREPARING':'SERVED',
+                    'SERVED':'PAYMENT',
+                    'PAYMENT':'PAID'}
+    obj = Order.objects.get(pk=order_id)
+    if obj.order_status == 'PAID':
+        return redirect('/',
+                        messages.error(request, "Order couldn't be changed.", 'alert-danger'))
+    else:
+        obj.order_status = ORDER_STATUS.get(obj.order_status)
+        obj.save()
+        return redirect('/', messages.success(request, 'Order status changed.', 'alert-success'))
