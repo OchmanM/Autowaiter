@@ -1,7 +1,7 @@
 <?php
 $servername = "mysql26.mydevil.net";
 $username = "m1022_django";
-$password = "9m%%(n9@QIq5nrvUBQ$0";
+$password = "pwd";
 $db = "m1022_autowaiter"
 
 // Create connection
