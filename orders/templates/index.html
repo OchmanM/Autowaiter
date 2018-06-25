@@ -30,7 +30,7 @@
                                                         <th>Price</th>
                                                         <th>Total</th>
                                                         <th>Status</th>
-                                                        <th width="150px">Buttons</th>
+                                                        <th width="200px">Buttons</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -46,18 +46,25 @@
                                                             <td>{% widthratio order.product_id.price 1 order.quantity  %}</td>
                                                             {% if order.order_status == 'PAYMENT' %}
                                                                 <td><span class="badge">{{ order.order_status }}</span></td>
+                                                                <td><a href="{% url 'status_change' order.id %}" class="btn ink-reaction btn-floating-action btn-info"><i class="md md-notifications-on"></i> </a>
                                                             {% elif order.order_status == 'Ready' %}
                                                                 <td><span class="badge" style="background: #ff9800"> {{ order.order_status }}</span></td>
+                                                             <td><a href="{% url 'status_change' order.id %}" class="btn ink-reaction btn-floating-action btn-info"><i class="md md-notifications-on"></i> </a>
                                                             {% elif order.order_status == 'ORDERED' %}
                                                                 <td><span class="badge" style="background: #0c84e4"> {{ order.order_status }}</span></td>
+                                                                <td><a href="{% url 'status_change' order.id %}" class="btn ink-reaction btn-floating-action btn-info"><i class="md md-notifications-none"></i> </a>
                                                             {% elif order.order_status == 'PREPARING' %}
                                                                 <td><span class="badge" style="background: #0aa89e"> {{ order.order_status }}</span></td>
+                                                                <td><a href="{% url 'status_change' order.id %}" class="btn ink-reaction btn-floating-action btn-info"><i class="md md-notifications"></i> </a>
                                                             {% elif order.order_status == 'SERVED' %}
                                                                 <td><span class="badge" style="background: #f44336"> {{ order.order_status }}</span></td>
+                                                             <td><a href="{% url 'status_change' order.id %}" class="btn ink-reaction btn-floating-action btn-info"><i class="md md-notifications-paused"></i> </a>
                                                             {% elif order.order_status == 'PAID' %}
                                                                 <td><span class="badge" style="background: #313534"> {{ order.order_status }}</span></td>
+                                                                <td><a href="{% url 'status_change' order.id %}" class="btn ink-reaction btn-floating-action btn-info"><i class="md md-notifications-off"></i> </a>
                                                             {% endif %}
-                                                            <td>
+
+
                                                                 <a href="{% url 'delete' order.id %}" class="btn ink-reaction btn-floating-action btn-danger" onclick="return confirm('Are you sure you want to delete this?')"><i class="md md-delete"></i> </a>
                                                                 <a href="{% url 'edit' order.id %}" class="btn ink-reaction btn-floating-action btn-warning"><i class="md md-edit"></i> </a>                 
                                                                 <a href="{% url 'show' order.id %}" class="btn ink-reaction btn-floating-action btn-primary"><i class="md md-print"></i> </a>

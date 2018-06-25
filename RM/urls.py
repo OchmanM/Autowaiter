@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^order/new/$', my_order.new, name='new'),
     url(r'^order/edit/(?P<order_id>\d+)/$', my_order.edit, name='edit'),
     url(r'^order/delete/(?P<order_id>\d+)/$', my_order.destroy, name='delete'),
+    url(r'^order/status_change/(?P<order_id>\d+)/$', my_order.status_change, name="status_change"),
     #
     url(r'^products$', my_order.index_product, name='home_product'),
     url(r'^product/new/$', my_order.new_product, name='new_product'),
