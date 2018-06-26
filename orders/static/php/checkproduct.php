@@ -1,8 +1,8 @@
 <?php
-$servername = "mysql26.mydevil.net";
-$username = "m1022_django";
+$servername = "server";
+$username = "usr";
 $password = "pwd";
-$db = "m1022_autowaiter"
+$db = "db"
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $db);
