@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'RM.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'm1022_autowaiter',
-        'USER': 'm1022_django',
+        'ENGINE': 'engine',
+        'NAME': 'name',
+        'USER': 'user',
         'PASSWORD': 'pwd',
-        'HOST': 'mysql26.mydevil.net',   # Or an IP Address that your DB is hosted on
+        'HOST': 'host',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
