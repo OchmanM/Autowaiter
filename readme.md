@@ -10,10 +10,6 @@
 python manage.py migrate
 ```
 ## Login Credentials
-- Login: marcino
-
-    Password: test12345
-    
 - To add admin user, use
 ```
 py manage.py createsuperuser
